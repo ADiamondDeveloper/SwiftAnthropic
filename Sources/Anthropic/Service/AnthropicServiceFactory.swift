@@ -27,6 +27,7 @@ public final class AnthropicServiceFactory {
       basePath: String = "https://api.anthropic.com",
       betaHeaders: [String]?,
       configuration: URLSessionConfiguration = .default,
+      taskDelegate: URLSessionTaskDelegate? = nil,
       debugEnabled: Bool = false)
       -> AnthropicService
    {
@@ -36,6 +37,7 @@ public final class AnthropicServiceFactory {
          basePath: basePath, 
          betaHeaders: betaHeaders,
          configuration: configuration,
+         taskDelegate: taskDelegate,
          debugEnabled: debugEnabled)
    }
 

@@ -17,6 +17,8 @@ struct DefaultAnthropicService: AnthropicService {
    let betaHeaders: [String]?
    /// Set this flag to TRUE if you need to print request events in DEBUG builds.
    private let debugEnabled: Bool
+  
+   weak var taskDelegate: URLSessionTaskDelegate?
    
    init(
       apiKey: String,
@@ -24,6 +26,7 @@ struct DefaultAnthropicService: AnthropicService {
       basePath: String,
       betaHeaders: [String]?,
       configuration: URLSessionConfiguration = .default,
+      taskDelegate: URLSessionTaskDelegate? = nil,
       debugEnabled: Bool)
    {
       self.session = URLSession(configuration: configuration)
@@ -34,6 +37,7 @@ struct DefaultAnthropicService: AnthropicService {
       self.apiVersion = apiVersion
       self.basePath = basePath
       self.betaHeaders = betaHeaders
+      self.taskDelegate = taskDelegate
       self.debugEnabled = debugEnabled
    }
    

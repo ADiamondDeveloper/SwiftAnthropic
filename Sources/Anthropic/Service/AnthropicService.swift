@@ -50,6 +50,8 @@ public protocol AnthropicService {
    /// This decoder is used to parse the JSON responses returned by the API
    /// into model objects that conform to the `Decodable` protocol.
    var decoder: JSONDecoder { get }
+  
+  var taskDelegate: URLSessionTaskDelegate? { get }
    
    // MARK: Message
    
@@ -122,7 +124,7 @@ extension AnthropicService {
       if debugEnabled {
          printCurlCommand(request)
       }
-      let (data, response) = try await session.data(for: request)
+      let (data, response) = try await session.data(for: request, delegate: taskDelegate)
       guard let httpResponse = response as? HTTPURLResponse else {
          throw APIError.requestFailed(description: "invalid response unable to get a valid HTTPURLResponse")
       }
@@ -187,7 +189,7 @@ extension AnthropicService {
          printCurlCommand(request)
       }
       
-      let (data, response) = try await session.bytes(for: request)
+      let (data, response) = try await session.bytes(for: request, delegate: taskDelegate)
       guard let httpResponse = response as? HTTPURLResponse else {
          throw APIError.requestFailed(description: "invalid response unable to get a valid HTTPURLResponse")
       }
